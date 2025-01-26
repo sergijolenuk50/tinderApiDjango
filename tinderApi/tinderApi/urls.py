@@ -23,13 +23,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users.views import UserCreateView
+# from .views import UserCreateView, MyTokenObtainPairView, MyTokenRefreshView  
+from users.views import MyTokenObtainPairView, MyTokenRefreshView  
 
 urlpatterns = [
 path('admin/', admin.site.urls),
 # path('accounts/', include('django.contrib.auth.urls')),
-path('register/', UserCreateView.as_view(), name='register')
+path('register/', UserCreateView.as_view(), name='register'),
+# path('api/users/', UserCreateView.as_view(), name='user-create'),  
+path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),  
+path('api/token/refresh/', MyTokenRefreshView.as_view(), name='token_refresh'),  
 ]
 # ]
 
 #Add Django site authentication urls (for login, logout, password management)
-

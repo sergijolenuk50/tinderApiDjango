@@ -54,6 +54,12 @@ git add .
 git commit -m ".gitignore Fixed"
 
 
+pip install djangorestframework-simplejwt  
+
+
+
+
+
 
 -------App and Templates--------
 .venv\Scripts\activate.bat
