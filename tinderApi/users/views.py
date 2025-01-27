@@ -15,6 +15,9 @@ from rest_framework import serializers
 from rest_framework_simplejwt.views import TokenRefreshView  
 from rest_framework.response import Response  
 
+# from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+
 class UserCreateView(generics.CreateAPIView):  
     queryset = CustomUser.objects.all()  
     serializer_class = CustomUserSerializer  
@@ -36,30 +39,69 @@ class ProtectedView(generics.ListAPIView):
 #     pass  
 
 
+# class MyTokenObtainPairSerializer(serializers.Serializer):  
+#     email = serializers.EmailField()  
+#     password = serializers.CharField()  
+
+#     def validate(self, attrs):  
+#         # Ваша логіка для валідації  
+#         user = CustomUser.objects.filter(email=attrs['email']).first()  
+#         if user is None or not user.check_password(attrs['password']):  
+#             raise ValidationError('Неправильні облікові дані.')  
+
+#         # Додаткова валідація про активність користувача  
+#         if not user.is_active:  
+#             raise ValidationError('Користувач неактивний.')  
+
+#         return attrs  
+
+
 class MyTokenObtainPairSerializer(serializers.Serializer):  
     email = serializers.EmailField()  
     password = serializers.CharField()  
 
     def validate(self, attrs):  
-        # Ваша логіка для валідації  
         user = CustomUser.objects.filter(email=attrs['email']).first()  
         if user is None or not user.check_password(attrs['password']):  
             raise ValidationError('Неправильні облікові дані.')  
 
-        # Додаткова валідація про активність користувача  
         if not user.is_active:  
             raise ValidationError('Користувач неактивний.')  
 
-        return attrs  
+        # Створення токенів
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+        refresh_token = str(refresh)
+
+        return {
+            'access': access_token,
+            'refresh': refresh_token
+        }
 
 
-class MyTokenObtainPairView(TokenObtainPairView):  
-    serializer_class = MyTokenObtainPairSerializer  
 
-    def post(self, request, *args, **kwargs):  
-        # Додаємо свій обробник POST  
-        return super().post(request, *args, **kwargs)  
+
+# class MyTokenObtainPairView(TokenObtainPairView):  
+#     serializer_class = MyTokenObtainPairSerializer  
+
+#     def post(self, request, *args, **kwargs):  
+#         # Додаємо свій обробник POST  
+#         return super().post(request, *args, **kwargs)  
     
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
+
+    def post(self, request, *args, **kwargs):
+        # Можна додати тут логування
+        print(request.data)  # Перевірте, що дані надходять правильно
+
+        response = super().post(request, *args, **kwargs)
+        return response
+
+
+
+
+
 
 
 class MyTokenRefreshView(TokenRefreshView):  
