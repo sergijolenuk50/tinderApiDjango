@@ -32,7 +32,7 @@ path('admin/', admin.site.urls),
 path('register/', UserCreateView.as_view(), name='register'),
 # path('api/users/', UserCreateView.as_view(), name='user-create'),  
 path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),  
-path('api/token/refresh/', MyTokenRefreshView.as_view(), name='token_refresh'),  
+#path('api/token/refresh/', MyTokenRefreshView.as_view(), name='token_refresh'),  
 ]
 # ]
 
