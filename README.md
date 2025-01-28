@@ -59,7 +59,12 @@ pip install djangorestframework-simplejwt
 
 
 
-
+<!-- chat -->
+python manage.py startapp chat
+pip install channels
+pip install channels_redis
+python manage.py makemigrations
+python manage.py migrate
 
 -------App and Templates--------
 .venv\Scripts\activate.bat

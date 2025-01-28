@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework', 
     'corsheaders',
     'rest_framework_simplejwt',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -164,4 +165,15 @@ SIMPLE_JWT = {
     'ALGORITHM': 'HS256',
     'SIGNING_KEY': SECRET_KEY,  # Ваш секретний ключ
     'VERIFYING_KEY': None,
+}
+
+ASGI_APPLICATION = "myproject.asgi.application"
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
 }

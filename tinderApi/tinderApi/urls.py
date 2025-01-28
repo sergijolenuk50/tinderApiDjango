@@ -25,6 +25,11 @@ from django.urls import path, include
 from users.views import UserCreateView
 # from .views import UserCreateView, MyTokenObtainPairView, MyTokenRefreshView  
 from users.views import MyTokenObtainPairView, MyTokenRefreshView  
+# from chat import views
+# from django.urls import path
+# from . import views
+
+app_name = 'chat'
 
 urlpatterns = [
 path('admin/', admin.site.urls),
@@ -33,6 +38,8 @@ path('register/', UserCreateView.as_view(), name='register'),
 # path('api/users/', UserCreateView.as_view(), name='user-create'),  
 path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),  
 #path('api/token/refresh/', MyTokenRefreshView.as_view(), name='token_refresh'),  
+# path('<int:user_id>/', views.chat_view, name='chat_view'),
+path('chat/', include('chat.urls')),
 ]
 # ]
 

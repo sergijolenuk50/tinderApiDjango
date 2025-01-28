@@ -1,0 +1,35 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h1>Chat with user {{ user_id }}</h1>
+  {% comment %} <h1>Chat with {{ other_user.username }}</h1> {% endcomment %}
+
+  <div id="chat-log">
+    <!-- Повідомлення будуть з'являтися тут -->
+  </div>
+
+  <input id="message-input" type="text" placeholder="Write a message...">
+  <button id="send-button">Send</button>
+
+  <script>
+    const chatSocket = new WebSocket(
+      'ws://' + window.location.host + '/ws/chat/{{ other_user.id }}/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const message = data['message'];
+        const sender = data['sender'];
+        
+        const chatLog = document.getElementById('chat-log');
+        chatLog.innerHTML += '<p><strong>' + sender + ':</strong> ' + message + '</p>';
+    };
+
+    document.getElementById('send-button').onclick = function() {
+        const messageInputDom = document.getElementById('message-input');
+        const message = messageInputDom.value;
+        chatSocket.send(JSON.stringify({'message': message}));
+        messageInputDom.value = ''; // Clear input field
+    };
+  </script>
+{% endblock %}
