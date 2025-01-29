@@ -1,5 +1,5 @@
-{% comment %} {% extends 'base_generic.html' %}
-{% block content %} {% endcomment %}
+{% extends 'base_generic.html' %}
+{% block content %}
 <h1>Chat with user {{ user_id }}</h1>
 {% comment %} <h1>Chat with {{ other_user.username }}</h1> {% endcomment %}
 
@@ -12,8 +12,8 @@
 
 <script>
   const chatSocket = new WebSocket(
-    {% comment %} 'ws://' + window.location.host + '/ws/chat/{{ user.id }}/' {% endcomment %}
-    'ws://' + window.location.host + '/ws/chat/{{ other_user.id }}/'
+    'ws://' + window.location.host + '/ws/chat/{{ user.id }}/'
+    {% comment %} 'ws://' + window.location.host + '/ws/chat/{{ other_user.id }}/' {% endcomment %}
     
     );
 
@@ -33,4 +33,4 @@
         messageInputDom.value = ''; // Clear input field
     };
   </script>
-{% comment %} {% endblock %} {% endcomment %}
+{% endblock %}

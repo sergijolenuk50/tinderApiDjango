@@ -168,13 +168,13 @@ SIMPLE_JWT = {
     'VERIFYING_KEY': None,
 }
 
-ASGI_APPLICATION = "chat.asgi.application"
+ASGI_APPLICATION = "tinderApi.asgi.application"
 
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
+            "hosts": [('127.0.0.1', 9178)],
         },
     },
 }

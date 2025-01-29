@@ -1,0 +1,28 @@
+<!-- templates/base_generic.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Chat{% endblock %}</title>
+    <!-- Тут можна підключити стилі (CSS) або JavaScript -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Chat</h1>
+     
+
+    </header>
+
+    <div class="container">
+        {% block content %}
+        <!-- Тут буде виводитися контент конкретної сторінки -->
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Your Company</p>
+    </footer>
+</body>
+</html>
