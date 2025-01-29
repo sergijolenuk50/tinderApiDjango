@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
 from datetime import timedelta
 from pathlib import Path
 
@@ -61,8 +60,10 @@ ROOT_URLCONF = 'tinderApi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [
+            'templates'
+            ],  # Це дозволить шукати шаблони в кореневій директорії
+        'APP_DIRS': True,  # Цей параметр дозволить шукати шаблони в кожному додатку
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -167,7 +168,7 @@ SIMPLE_JWT = {
     'VERIFYING_KEY': None,
 }
 
-ASGI_APPLICATION = "myproject.asgi.application"
+ASGI_APPLICATION = "chat.asgi.application"
 
 CHANNEL_LAYERS = {
     'default': {

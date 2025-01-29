@@ -1,19 +1,20 @@
-{% extends 'base_generic.html' %}
-
-{% block content %}
+{% comment %} {% extends 'base_generic.html' %}
+{% block content %} {% endcomment %}
 <h1>Chat with user {{ user_id }}</h1>
-  {% comment %} <h1>Chat with {{ other_user.username }}</h1> {% endcomment %}
+{% comment %} <h1>Chat with {{ other_user.username }}</h1> {% endcomment %}
 
-  <div id="chat-log">
-    <!-- Повідомлення будуть з'являтися тут -->
-  </div>
+<div id="chat-log">
+  <!-- Повідомлення будуть з'являтися тут -->
+</div>
 
-  <input id="message-input" type="text" placeholder="Write a message...">
-  <button id="send-button">Send</button>
+<input id="message-input" type="text" placeholder="Write a message...">
+<button id="send-button">Send</button>
 
-  <script>
-    const chatSocket = new WebSocket(
-      'ws://' + window.location.host + '/ws/chat/{{ other_user.id }}/'
+<script>
+  const chatSocket = new WebSocket(
+    {% comment %} 'ws://' + window.location.host + '/ws/chat/{{ user.id }}/' {% endcomment %}
+    'ws://' + window.location.host + '/ws/chat/{{ other_user.id }}/'
+    
     );
 
     chatSocket.onmessage = function(e) {
@@ -32,4 +33,4 @@
         messageInputDom.value = ''; // Clear input field
     };
   </script>
-{% endblock %}
+{% comment %} {% endblock %} {% endcomment %}

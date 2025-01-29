@@ -4,8 +4,17 @@
 from django.shortcuts import render
 
 def chat_view(request, user_id):
+    # other_user = User.objects.get(id=user_id)
+    # return render(request, 'chat/chat_view.html', {'other_user': other_user})
+    
+    # print('working chat_view')
     # Логіка для обробки чату, наприклад:
     return render(request, 'chat/chat_view.html', {'user_id': user_id})
+
+
+
+
+
 
 
 # chat/views.py
